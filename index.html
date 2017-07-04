@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+    <meta charset="utf-8">
+    <title>Megan Moore</title>
+    <meta name="description" content="Megan Moore is a Montreal based photography and video artist.">
+    <meta property="og:title" content="megan moore" />
+    <meta property="og:image" content="http://www.meganmoore.ca/images/shelter/1.jpg" />
+    <meta property="og:url" content="http://www.meganmoore.ca" />
+    <meta property="og:description" content="Megan Moore is a Montreal based photography and video artist." />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="http://www.meganmoore.ca">
+    <meta name="twitter:title" content="megan moore">
+    <meta name="twitter:description" content="Megan Moore is a Montreal based photography and video artist.">
+    <meta name="twitter:image" content="http://www.meganmoore.ca/images/shelter/1.jpg">
+    <link rel="stylesheet" href="style.css" media="screen" charset="utf-8">
+    <style media="screen">
+        body {
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="main-link"><a href="./work.html">MEGAN MOORE</a></p>
+    <video style="opacity:0;transition:opacity 0.5s;" id="main-video" autoplay loop="true">
+
+    </video>
+    <script type="text/javascript">
+        var rand = Math.ceil(Math.random() * 3);
+        var vid = document.getElementById("main-video");
+        vid.setAttribute("poster", "./images/video" + rand + ".jpg");
+        vid.setAttribute("src", "./videos/video" + rand + ".mp4");
+
+        window.onload = function () {
+            vid.style.opacity = "1";
+        };
+    </script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
