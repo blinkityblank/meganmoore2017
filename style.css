@@ -2,7 +2,38 @@
 
 /*Intro page video full screen*/
 
-@media all and (min-aspect-ratio:1920/1080) {
+.video-container {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.video-container>video {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+@media screen and (max-aspect-ratio: 1920/1080) {
+    .video-container>video {
+        height: 100%;
+    }
+}
+
+@media screen and (min-aspect-ratio: 1920/1080) {
+    .video-container>video {
+        width: 100%;
+    }
+}
+
+
+/*@media all and (min-aspect-ratio:1920/1080) {
     #main-video {
         width: 100vw;
         height: auto;
@@ -14,16 +45,7 @@
         width: auto;
         height: 100vh;
     }
-}
-
-
-/*Limits size of image gallery over a specific aspect ratio*/
-
-@media all and (min-aspect-ratio:10/4) {
-    .image-gallery-inner {
-        max-width: 60%;
-    }
-}
+}*/
 
 
 /*Applicable to every screen*/
@@ -108,7 +130,7 @@ body {
 #side-menu {
     z-index: 10000;
     position: fixed;
-    padding-top: 100px;
+    padding-top: 50px;
     min-height: 800px;
     max-height: 1000px;
     list-style: none;
@@ -116,10 +138,11 @@ body {
     background-color: white;
     border-right: 1px solid rgb(200, 200, 200);
     border-bottom: 1px solid rgb(200, 200, 200);
+    overflow-y: scroll;
 }
 
 #side-menu li {
-    padding: 20px;
+    padding: 10px;
     padding-left: 50px;
     padding-right: 100px;
     text-align: left;
@@ -153,8 +176,8 @@ body {
 
 .video-work {
     width: 70vw;
-    max-width: 1000px;
-    max-height: 666px;
+    max-width: 1200px;
+    max-height: 800px;
     height: 40vw;
     align-content: center;
     padding: 50px;
@@ -328,6 +351,15 @@ body {
     }
 }
 
+
+/*Limits size of image gallery over a specific aspect ratio*/
+
+@media all and (min-aspect-ratio:10/4) {
+    .image-gallery-inner {
+        max-width: 60%;
+    }
+}
+
 @media all and (max-width:980px) and (min-width:701px) and (orientation: landscape) {
     .post {
         height: 120vh;
@@ -418,5 +450,38 @@ body {
         height: 60vw;
         padding: 0px;
         padding-bottom: 25px;
+    }
+    #bio-container {
+        text-align: justify;
+        padding-top: 200px;
+        padding-bottom: 200px;
+        width: 80vw;
+    }
+}
+
+@media all and (max-width:700px) and (orientation: landscape) {
+    #main-menu {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 100vw;
+        padding: 10px;
+        padding-left: 50px;
+        font-size: 0.8em;
+        font-weight: 100;
+        background-color: white;
+    }
+    #main-menu li a {
+        text-decoration: none;
+        color: black;
+    }
+    #main-menu li {
+        display: inline;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 }
