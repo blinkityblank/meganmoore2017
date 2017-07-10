@@ -4,21 +4,22 @@ var Gallery = function (id) {
     this.imgList = this.gallery.getElementsByTagName('img');
     this.max = this.imgList.length;
     this.count = 1;
-    this.rightArrow = document.getElementById('left-arrow-' + this.id);
-    this.leftArrow = document.getElementById('right-arrow-' + this.id);
+    this.leftArrow = document.getElementById('left-arrow-' + this.id);
+    this.rightArrow = document.getElementById('right-arrow-' + this.id);
     this.imgList[0].style.display = 'inline';
     this.imgList[0].setAttribute('src', this.imgList[0].getAttribute('data-link'));
     this.imgList[1].setAttribute('src', this.imgList[1].getAttribute('data-link'));
     this.imgList[2].setAttribute('src', this.imgList[2].getAttribute('data-link'));
-    this.clickLeftArrow = function () {
+    this.touchStart;
+    this.clickRightArrow = function () {
         var current = document.getElementById(this.id + this.count);
         this.count++;
         if (this.count > 1) {
-            this.rightArrow.style.visibility = "visible";
+            this.leftArrow.style.visibility = "visible";
         }
         document.getElementById(this.id + this.count).style.display = "inline";
         if (this.count === this.max) {
-            this.leftArrow.style.visibility = "hidden";
+            this.rightArrow.style.visibility = "hidden";
         }
         if (this.count < this.max - 1) {
             document.getElementById(this.id + (this.count + 1)).setAttribute("src", document.getElementById(this.id + (this.count + 1)).getAttribute("data-link"));
@@ -32,20 +33,20 @@ var Gallery = function (id) {
         }.bind(this), 500);
     };
 
-    this.clickRightArrow = function () {
+    this.clickLeftArrow = function () {
         var current = document.getElementById(this.id + (this.count - 1));
         current.style.display = "inline";
         setTimeout(function () {
             current.style.marginLeft = 0;
         }.bind(this), 20);
         if (this.count <= this.max) {
-            this.leftArrow.style.visibility = "visible";
+            this.rightArrow.style.visibility = "visible";
         }
         setTimeout(function () {
             document.getElementById(this.id + this.count).style.display = "none";
             this.count--;
             if (this.count === 1) {
-                this.rightArrow.style.visibility = "hidden";
+                this.leftArrow.style.visibility = "hidden";
             }
         }.bind(this), 500);
     };
@@ -53,6 +54,21 @@ var Gallery = function (id) {
     this.leftArrow.addEventListener("click", this.clickLeftArrow.bind(this));
 
     this.rightArrow.addEventListener("click", this.clickRightArrow.bind(this));
+
+    for (var i = 0; i < this.imgList.length; i++) {
+        this.imgList[i].addEventListener("touchstart", function (e) {
+            return this.touchStart = e.touches[0];
+        }.bind(this));
+        this.imgList[i].addEventListener("touchend", function (e) {
+            if (e.changedTouches[0].clientX + 100 < this.touchStart.clientX && this.count < this.max) {
+                this.clickRightArrow();
+            } else if (e.changedTouches[0].clientX > this.touchStart.clientX + 100 && this.count > 1) {
+                this.clickLeftArrow();
+            } else {
+                return false;
+            }
+        }.bind(this));
+    }
 };
 
 
@@ -85,6 +101,8 @@ if (document.getElementById("specimens")) {
 }
 
 
+
+//Function to add the scrolling animation
 
 (function () // Code in a function to create an isolate scope
     {
@@ -133,34 +151,3 @@ if (document.getElementById("specimens")) {
             return document.documentElement.scrollTop + document.body.scrollTop;
         };
     })();
-/*
-
-    go through each photo-album div:
-
-    create photo album
-
-    function resize photos:
-    make them fit in the 70vw/70vh according to the ratio of the window
-    make it do that everytime the window is being resized(make a 100ms timeout)
-
-    load first photos of each albums
-
-    when the viewport scrolled to a photo-album, load image 2 and 3 of that album
-    then, if when image 2 is active load 4th image, when 3rd is active, load 5th, etc
-
-    arrows are linked to each gallery
-
-    every image is loaded with class right-out
-
-    left arrow: current image --> class left-out
-                next image --> class current
-                next-image + 2 --> load
-
-    right arrow: current image --> class right-out
-                previous image --> class current
-
-    left arrow: display:none when on last image
-    right arrow: display:none when on first image
-
-
-*/
